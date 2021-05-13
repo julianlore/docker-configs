@@ -1,0 +1,15 @@
+version: '3'
+services:
+  bitwarden:
+    image: vaultwarden/server:latest
+    container_name: bitwarden
+    restart: always
+    env_file:
+      - private/bitwarden.env
+    volumes:
+      - ./data/bw-data:/data
+
+networks:
+  default:
+    external:
+      name: caddy
