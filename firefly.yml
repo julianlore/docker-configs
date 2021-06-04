@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  firefly:
+    image: fireflyiii/core:latest
+    container_name: firefly
+    volumes:
+      - ./data/firefly_iii_upload:/var/www/html/storage/upload
+    env_file: private/firefly.env
+    env_file: private/firefly_priv.env
+    depends_on:
+      - db_firefly
+  db_firefly:
+    image: mariadb
+    env_file: private/db_firefly.env
+    volumes:
+      - ./data/firefly_iii_db:/var/lib/mysql
+
+networks:
+  default:
+    external:
+      name: caddy
