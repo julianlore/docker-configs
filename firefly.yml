@@ -6,8 +6,9 @@ services:
     container_name: firefly
     volumes:
       - ./data/firefly_iii_upload:/var/www/html/storage/upload
-    env_file: private/firefly.env
-    env_file: private/firefly_priv.env
+    env_file: 
+      - private/firefly.env
+      - private/firefly_priv.env
     depends_on:
       - db_firefly
   db_firefly:
