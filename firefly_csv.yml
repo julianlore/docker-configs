@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  firefly_csv:
+    image: fireflyiii/csv-importer:latest
+    container_name: firefly_csv
+    env_file: private/firefly_csv.env
+
+networks:
+  default:
+    external:
+      name: caddy

@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  monica:
+    image: monica
+    container_name: monica
+    volumes:
+      - ./data/monica:/var/www/html/storage
+    env_file:
+      - private/monica.env
+      - private/monica_priv.env
+    depends_on:
+      - db_monica
+  db_monica:
+    image: mysql:5.7
+    env_file: private/db_monica.env
+    volumes:
+      - ./data/monica_db:/var/lib/mysql
+
+networks:
+  default:
+    external:
+      name: caddy
