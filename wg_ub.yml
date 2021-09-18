@@ -1,0 +1,60 @@
+# Inspired from https://github.com/IAmStoxe/wirehole
+version: '3.7'
+
+networks:
+  private_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.2.0.0/24
+
+services:
+  wireguard:
+    depends_on: 
+      - unbound
+      - adguard
+    image: ghcr.io/linuxserver/wireguard
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+      - PEERS=1
+      - PEERDNS=10.2.0.100 # Adguard
+    volumes:
+      - ./data/wireguard:/config
+      - /lib/modules:/lib/modules
+    ports:
+      - 51820:51820/udp
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped
+    networks:
+      private_network:
+        ipv4_address: 10.2.0.3
+
+  unbound:
+    image: mvance/unbound:latest
+    container_name: unbound
+    volumes:
+      - ./data/unbound:/opt/unbound/etc/unbound
+    restart: unless-stopped
+    networks:
+      private_network:
+        ipv4_address: 10.2.0.200
+
+  adguard:
+    depends_on:
+      - unbound
+    image: adguard/adguardhome
+    container_name: adguard
+    volumes:
+      - ./data/adguard/work:/opt/adguardhome/work
+      - ./data/adguard/conf:/opt/adguardhome/conf
+    restart: unless-stopped
+    networks:
+      private_network:
+        ipv4_address: 10.2.0.100
