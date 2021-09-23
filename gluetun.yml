@@ -1,0 +1,9 @@
+version: '3.7'
+services:
+  gluetun:
+    image: qmcgaw/gluetun
+    container_name: gluetun
+    cap_add:
+      - NET_ADMIN
+    env_file: private/gluetun.env
+    network_mode: "container:wireguard"
