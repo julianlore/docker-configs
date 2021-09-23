@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+  dst:
+    image: jamesits/dst-server:latest
+    container_name: dst
+    ports:
+      - 10999-11000:10999-11000/udp
+      - 12346-12347:12346-12347/udp
+    volumes:
+      - ./data/DST:/data
