@@ -4,17 +4,17 @@ services:
     image: caddy:2
     container_name: caddy
     restart: always
-    ports:
-      - 80:80  # Needed for the ACME HTTP-01 challenge.
-      - 443:443
     volumes:
       - ./private/Caddyfile:/etc/caddy/Caddyfile:ro
       - ./data/caddy-config:/config
       - ./data/caddy-data:/data
     env_file:
       - private/caddy.env
+    networks:
+      wireguard:
+        ipv4_address: 10.2.0.10
 
 networks:
-  default:
+  wireguard:
     external:
-      name: caddy
+      name: wireguard

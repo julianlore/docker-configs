@@ -3,6 +3,7 @@ version: '3.7'
 
 networks:
   private_network:
+    name: wireguard
     ipam:
       driver: default
       config:
@@ -21,9 +22,9 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=America/Toronto
-      - PEERS=1
       - PEERDNS=10.2.0.100 # Adguard
+      - ALLOWEDIPS=10.2.0.0/24 # Allow local IPs (10.20.0.*)
+    env_file: private/wg.env
     volumes:
       - ./data/wireguard:/config
       - /lib/modules:/lib/modules
