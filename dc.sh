@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Runs docker-compose with the files to use by default with specified args
-YMLFILES=( "caddy.yml" "bitwarden.yml" "syncthing.yml" "wg_ub.yml" "gluetun.yml" )
+YMLFILES=( "caddy" "bitwarden" "syncthing" "wg_ub" )
 for i in "${YMLFILES[@]}"
 do
-  YMLARG=$YMLARG" -f "$i
+  YMLARG=$YMLARG" -f "$i".yml"
 done
 
 docker-compose $YMLARG $@

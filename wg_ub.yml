@@ -59,3 +59,11 @@ services:
     networks:
       private_network:
         ipv4_address: 10.2.0.100
+
+  gluetun:
+    image: qmcgaw/gluetun
+    container_name: gluetun
+    cap_add:
+      - NET_ADMIN
+    env_file: private/gluetun.env
+    network_mode: "service:wireguard"
