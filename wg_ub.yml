@@ -11,9 +11,6 @@ networks:
 
 services:
   wireguard:
-    depends_on: 
-      - unbound
-      - adguard
     image: ghcr.io/linuxserver/wireguard
     container_name: wireguard
     cap_add:
@@ -43,13 +40,9 @@ services:
     volumes:
       - ./data/unbound:/opt/unbound/etc/unbound
     restart: unless-stopped
-    networks:
-      private_network:
-        ipv4_address: 10.2.0.200
+    network_mode: "service:gluetun"
 
   adguard:
-    depends_on:
-      - unbound
     image: adguard/adguardhome
     container_name: adguard
     volumes:
