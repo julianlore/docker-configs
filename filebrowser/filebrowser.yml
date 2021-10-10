@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  filebrowser:
+    image: hurlenko/filebrowser
+    container_name: filebrowser
+    user: 1000:1000
+    restart: unless-stopped
+    volumes:
+      - ${DATA_DIR}:/data
+      - ../data/filebrowser:/config
+
+networks:
+  default:
+    external:
+      name: wireguard
