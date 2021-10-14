@@ -6,6 +6,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./data/organizr:/config
+    dns: 10.2.0.100
 
 networks:
   default:

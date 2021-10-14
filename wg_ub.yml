@@ -29,7 +29,7 @@ services:
       - 51820:51820/udp
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
-    restart: unless-stopped
+    restart: always
     networks:
       private_network:
         ipv4_address: 10.2.0.3
@@ -39,7 +39,7 @@ services:
     container_name: unbound
     volumes:
       - ./data/unbound:/opt/unbound/etc/unbound
-    restart: unless-stopped
+    restart: always
     network_mode: "service:gluetun"
 
   adguard:
@@ -48,7 +48,7 @@ services:
     volumes:
       - ./data/adguard/work:/opt/adguardhome/work
       - ./data/adguard/conf:/opt/adguardhome/conf
-    restart: unless-stopped
+    restart: always
     networks:
       private_network:
         ipv4_address: 10.2.0.100
@@ -59,4 +59,5 @@ services:
     cap_add:
       - NET_ADMIN
     env_file: private/gluetun.env
+    restart: always
     network_mode: "service:wireguard"
