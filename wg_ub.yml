@@ -3,11 +3,10 @@ version: '3.7'
 
 networks:
   private_network:
-    name: wireguard
-    ipam:
-      driver: default
-      config:
-        - subnet: 10.2.0.0/24
+    external:
+      # Run `docker network create --subnet=10.2.0.0/24 wireguard` or
+      # `create_wg_net.sh` to create the network
+      name: wireguard
 
 services:
   wireguard:
