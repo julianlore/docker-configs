@@ -34,10 +34,9 @@ services:
         ipv4_address: 10.2.0.3
 
   unbound:
-    image: mvance/unbound:latest
+    image: qmcgaw/dns
     container_name: unbound
-    volumes:
-      - ./data/unbound:/opt/unbound/etc/unbound
+    env_file: private/qmc_unbound.env
     restart: always
     network_mode: "service:gluetun"
 
