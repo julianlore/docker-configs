@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  speedtest:
+    image: adolfintel/speedtest
+    container_name: speedtest
+    restart: unless-stopped
+    env_file:
+      - private/speedtest.env
+
+networks:
+  default:
+    external:
+      name: wireguard
