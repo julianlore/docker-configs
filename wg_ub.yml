@@ -24,14 +24,10 @@ services:
     volumes:
       - ./data/wireguard:/config
       - /lib/modules:/lib/modules
-    ports:
-      - 51820:51820/udp
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
     restart: always
-    networks:
-      private_network:
-        ipv4_address: 10.2.0.3
+    network_mode: "service:gluetun"
 
   unbound:
     image: qmcgaw/dns
@@ -57,5 +53,9 @@ services:
     cap_add:
       - NET_ADMIN
     env_file: private/gluetun.env
+    ports:
+      - 51820:51820/udp
     restart: always
-    network_mode: "service:wireguard"
+    networks:
+      private_network:
+        ipv4_address: 10.2.0.3
