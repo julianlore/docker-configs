@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  duplicati:
+    image: lscr.io/linuxserver/duplicati
+    container_name: duplicati
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ../data/duplicati:/config
+      - ${BACKUPS}:/backups
+      - ${SOURCE}:/source
+
+networks:
+  default:
+    external:
+      name: wireguard
