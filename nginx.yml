@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  nginx:
+    image: nginx
+    container_name: nginx
+    restart: always
+    volumes:
+      - ./data/nginx:/etc/nginx
+    networks:
+      wireguard:
+        ipv4_address: 10.2.0.11
+
+networks:
+  wireguard:
+    external:
+      name: wireguard
