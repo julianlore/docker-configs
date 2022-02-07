@@ -1,0 +1,32 @@
+# Inspired from https://github.com/IAmStoxe/wirehole
+version: '3.7'
+
+networks:
+  private_network:
+    external:
+      # Run `docker network create --subnet=10.2.0.0/24 wireguard` or
+      # `create_wg_net.sh` to create the network
+      name: wireguard
+
+services:
+  unbound:
+    image: qmcgaw/dns
+    container_name: unbound
+    env_file: private/qmc_unbound.env
+    restart: always
+    network_mode: "service:gluetun"
+
+  gluetun:
+    image: qmcgaw/gluetun
+    container_name: gluetun
+    cap_add:
+      - NET_ADMIN
+    env_file: private/gluetun.env
+    volumes:
+      - ./data/gluetun/post-rules.txt:/iptables/post-rules.txt
+    ports:
+      - 51820:51820/udp
+    restart: always
+    networks:
+      private_network:
+        ipv4_address: 10.2.0.3
