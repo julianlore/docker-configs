@@ -53,6 +53,8 @@ services:
     cap_add:
       - NET_ADMIN
     env_file: private/gluetun.env
+    volumes:
+      - ./data/gluetun/post-rules.txt:/iptables/post-rules.txt
     ports:
       - 51820:51820/udp
     restart: always
