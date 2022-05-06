@@ -10,6 +10,8 @@ services:
       - ./data/caddy-data:/data
     env_file:
       - private/caddy.env
+    labels:
+      - sh.acme.autoload.domain=${DOMAIN}
     networks:
       wireguard:
         ipv4_address: 10.2.0.10
