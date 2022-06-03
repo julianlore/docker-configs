@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  radicale:
+    image: tomsquest/docker-radicale
+    container_name: radicale
+    restart: unless-stopped
+    volumes:
+      - ./data/radicale/data:/data
+      - ./data/radicale/config:/config:ro
+    environment:
+      PUID: 1000
+      PGID: 1000
+
+networks:
+  default:
+    external:
+      name: wireguard
