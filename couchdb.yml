@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  couchdb:
+    image: couchdb
+    container_name: couchdb
+    restart: unless-stopped
+    env_file:
+      - private/couchdb.env
+    volumes:
+      - ./data/couchdb/data:/opt/couchdb/data
+      - ./data/couchdb/local.ini:/opt/couchdb/etc/local.ini
+
+networks:
+  default:
+    external:
+      name: wireguard
