@@ -14,7 +14,7 @@ services:
       - sh.acme.autoload.domain=${DOMAIN}
     networks:
       wireguard:
-        ipv4_address: 10.2.0.10
+        ipv4_address: 10.2.0.110
 
 networks:
   wireguard:

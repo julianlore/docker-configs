@@ -20,7 +20,7 @@ services:
       - /etc/os-release:/host/etc/os-release:ro
     networks:
       default:
-        ipv4_address: 10.2.0.15
+        ipv4_address: 10.2.0.115
 
 networks:
   default:
