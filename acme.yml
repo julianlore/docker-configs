@@ -7,7 +7,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
   acme.sh:
-    image: neilpang/acme.sh
+    image: neilpang/acme.sh:3.0.5
     container_name: acme.sh
     command: daemon
     volumes:
