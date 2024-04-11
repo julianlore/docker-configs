@@ -7,7 +7,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
   acme.sh:
-    image: neilpang/acme.sh:3.0.5
+    image: neilpang/acme.sh
     container_name: acme.sh
     command: daemon
     volumes:
@@ -18,6 +18,6 @@ services:
     labels:
       ofelia.enabled: "true"
       ofelia.job-exec.issue.schedule: "@daily"
-      ofelia.job-exec.issue.command: --issue --dns ${DNS_HOOK} --server letsencrypt -d ${DOMAIN} -d *.${DOMAIN}
+      ofelia.job-exec.issue.command: --issue --dns ${DNS_HOOK} -d ${DOMAIN} -d *.${DOMAIN}
       ofelia.job-exec.deploy.schedule: "@daily"
       ofelia.job-exec.deploy.command: --deploy -d ${DOMAIN} -d *.${DOMAIN} --deploy-hook docker
